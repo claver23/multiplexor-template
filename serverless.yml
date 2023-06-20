@@ -1,0 +1,87 @@
+#service: etl-multiplexor-template
+#provider:
+#  name: aws
+#  runtime: java8
+#  stage: dev
+#  timeout: 30
+#  region: us-east-1
+#  memorySize: 3008
+#package:
+#  artifact: target/multiplexor-template-0.0.1-SNAPSHOT-aws.jar
+#functions:
+#    healthCheck:
+#      handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+#      events:
+#         - http:
+#              path: /healthCheck
+#              method: GET
+#              cors: false
+#      environment:
+#        FUNCTION_NAME: healthCheck
+#    toUpperCase:
+#      handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+#      events:
+#         - http:
+#              path: /toUpperCase
+#              method: POST
+#              cors: false
+#         #- schedule: rate(1 minute)
+#      environment:
+#        FUNCTION_NAME: toUpperCase
+#    eatPayload:
+#      handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+#      events:
+#         - http:
+#              path: /eatPayload
+#              method: POST
+#              cors: false
+#         #- schedule: rate(1 minute)
+#      environment:
+#        FUNCTION_NAME: eatPayload
+service: etl-multiplexor-template
+provider:
+  name: aws
+  runtime: java8
+  stage: dev
+  timeout: 30
+  region: us-east-1
+  memorySize: 3008
+package:
+  individually: true
+functions:
+  healthCheck:
+    package:
+      artifact: target/multiplexor-template-0.0.1-SNAPSHOT-healthCheck.jar
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    events:
+      - http:
+          path: /healthCheck
+          method: GET
+          cors: false
+    environment:
+      FUNCTION_NAME: healthCheck
+
+  toUpperCase:
+    package:
+      artifact: target/multiplexor-template-0.0.1-SNAPSHOT-toUpperCase.jar
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    events:
+      - http:
+          path: /toUpperCase
+          method: POST
+          cors: false
+    environment:
+      FUNCTION_NAME: toUpperCase
+
+  eatPayload:
+    package:
+      artifact: target/multiplexor-template-0.0.1-SNAPSHOT-eatPayload.jar
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    events:
+      - http:
+          path: /eatPayload
+          method: POST
+          cors: false
+    environment:
+      FUNCTION_NAME: eatPayload
+
