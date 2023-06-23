@@ -23,41 +23,6 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>build-healthCheck</id>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-            <configuration>
-              <classifier>healthCheck</classifier>
-              <mainClass>org.springframework.cloud.function.adapter.aws.FunctionInvoker</mainClass>
-              <attach>false</attach>
-            </configuration>
-          </execution>
-          <execution>
-            <id>build-toUpperCase</id>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-            <configuration>
-              <classifier>toUpperCase</classifier>
-              <mainClass>org.springframework.cloud.function.adapter.aws.FunctionInvoker</mainClass>
-              <attach>false</attach>
-            </configuration>
-          </execution>
-          <execution>
-            <id>build-eatPayload</id>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-            <configuration>
-              <classifier>eatPayload</classifier>
-              <mainClass>com.etlions.serverless.multiplexortemplate.MultiplexorTemplateApplication</mainClass>
-              <attach>false</attach>
-            </configuration>
-          </execution>
-        </executions>
         <dependencies>
           <dependency>
             <groupId>org.springframework.boot.experimental</groupId>
@@ -86,6 +51,14 @@
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <shadedArtifactAttached>true</shadedArtifactAttached>
               <shadedClassifierName>aws</shadedClassifierName>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <includes>
+                    <include>**</include>
+                  </includes>
+                </filter>
+              </filters>
             </configuration>
           </execution>
           <execution>

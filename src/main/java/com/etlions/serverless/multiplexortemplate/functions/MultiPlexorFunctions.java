@@ -7,17 +7,19 @@ import java.util.function.Supplier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.etlions.serverless.multiplexortemplate.utils.ApiResponse;
+
 @Configuration
 public class MultiPlexorFunctions {
 	
 	@Bean
-	Supplier<String> healthCheck(){
-		return () -> "yellow from Multiplexor";
+	Supplier<ApiResponse> healthCheck(){
+		return () -> ApiResponse.ok("healthcheck", "yellow from Multiplexor") ;
 	}
 	
 	@Bean
-	Function<String, String> toUpperCase(){
-		return (input) -> input.toUpperCase() + "from Multiplexor" ;
+	Function<String, ApiResponse> toUpperCase(){
+		return (input) -> ApiResponse.ok("toUpperCase", input.toUpperCase() + "from Multiplexor");  
 	}
 	
 	@Bean
